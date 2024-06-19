@@ -1,7 +1,7 @@
 # Changelog
 
 
-### NEXT
+### 3.4.3
 
 * Update to libwebrtc M120/6099 ([#173](https://github.com/versatica/libmediasoupclient/pull/173)). Thanks @Poldraunic, @janreyho, @copiltembel.
 
