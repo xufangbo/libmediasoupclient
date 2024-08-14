@@ -538,6 +538,7 @@ namespace mediasoupclient
 						if (jsonSpropStereoIt != codec["parameters"].end() && jsonSpropStereoIt->is_number())
 						{
 							auto spropStereo = jsonSpropStereoIt->get<int>();
+
 							parameters["stereo"] = spropStereo ? 1 : 0;
 						}
 					}
