@@ -229,7 +229,7 @@ TEST_CASE("ortc::reduceCodecs", "[ortc::reduceCodecs]")
 {
 	json caps = generateRouterRtpCapabilities();
 
-	SECTION("if can reduce codecs")
+	SECTION("it can reduce codecs")
 	{
 		auto capCodec       = R"(
 		{
@@ -260,7 +260,7 @@ TEST_CASE("ortc::reduceCodecs", "[ortc::reduceCodecs]")
 		REQUIRE(filteredCodecs[1]["mimeType"] == "video/rtx");
 	}
 
-	SECTION("it returns the first codec if no capability codec is given")
+	SECTION("it can return the first codec if no capability codec is given")
 	{
 		json capsCodec      = json::array();
 		json filteredCodecs = ortc::reduceCodecs(caps["codecs"], &capsCodec);
