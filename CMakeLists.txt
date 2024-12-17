@@ -66,6 +66,7 @@ set(HEADER_FILES
 
 set(
 	SOURCE_FILES
+	src/log.cpp
 	src/Consumer.cpp
 	src/DataConsumer.cpp
 	src/DataProducer.cpp
