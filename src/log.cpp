@@ -390,7 +390,7 @@ int log_init(log_options opts) {
     char cwd_path[512];
     getcwd(cwd_path, 512);
     printf("working directory: %s\n", cwd_path);
-    logopts.workingPath = strlen(cwd_path);
+    logopts.workingPath = strlen(cwd_path) + 1; 
   }
 
   logopts.initalized = true;
