@@ -362,6 +362,21 @@ int log_init_default() {
   return log_init(opts);
 }
 
+// 判断字符串是否以指定后缀结尾
+static int ends_with(const char *str, const char *suffix) {
+    if (!str || !suffix)
+        return 0;
+    size_t len_str = strlen(str);
+    size_t len_suffix = strlen(suffix);
+    
+    // 如果字符串长度小于后缀长度，则不可能以该后缀结尾
+    if (len_str < len_suffix)
+        return 0;
+
+    // 比较字符串末尾和后缀是否相等
+    return strncmp(str + len_str - len_suffix, suffix, len_suffix) == 0;
+}
+
 int log_init(log_options opts) {
   pthread_mutex_init(&mut, NULL);
 
@@ -390,7 +405,11 @@ int log_init(log_options opts) {
     char cwd_path[512];
     getcwd(cwd_path, 512);
     printf("working directory: %s\n", cwd_path);
-    logopts.workingPath = strlen(cwd_path) + 1; 
+    if(ends_with(cwd_path,"build")){
+      logopts.workingPath = strlen(cwd_path) - 5; 
+    }else{
+      logopts.workingPath = strlen(cwd_path) + 1; 
+    }
   }
 
   logopts.initalized = true;
