@@ -358,6 +358,7 @@ int log_init_default() {
   opts.writeFile = 0;
   opts.is_time = 1;
   opts.is_level = 0;
+  opts.hideWorkingPath = true;
   sprintf(opts.fileMode, "%s", "w+");
   return log_init(opts);
 }
