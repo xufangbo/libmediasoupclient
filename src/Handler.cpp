@@ -9,6 +9,7 @@
 #include "sdptransform.hpp"
 #include "sdp/Utils.hpp"
 #include <cinttypes> // PRIu64, etc
+#include "log.hpp"
 
 using json = nlohmann::json;
 
@@ -129,6 +130,7 @@ namespace mediasoupclient
 
 	void Handler::SetupTransport(const std::string& localDtlsRole, json& localSdpObject)
 	{
+		log_info("<");
 		MSC_TRACE();
 
 		if (localSdpObject.empty())
@@ -146,7 +148,9 @@ namespace mediasoupclient
 
 		// May throw.
 		this->privateListener->OnConnect(dtlsParameters);
-		this->transportReady = true;
+		this->transportReady = true; 
+
+		log_info("> ");
 	};
 
 	/* SendHandler instance methods. */
@@ -176,6 +180,7 @@ namespace mediasoupclient
 	  const json* codecOptions,
 	  const json* codec)
 	{
+		log_info("<");
 		MSC_TRACE();
 
 		// Check if the track is a null pointer.
@@ -201,8 +206,7 @@ namespace mediasoupclient
 		json sendingRemoteRtpParameters = this->sendingRemoteRtpParametersByKind[track->kind()];
 
 		// This may throw.
-		sendingRemoteRtpParameters["codecs"] =
-		  ortc::reduceCodecs(sendingRemoteRtpParameters["codecs"], codec);
+		sendingRemoteRtpParameters["codecs"] = ortc::reduceCodecs(sendingRemoteRtpParameters["codecs"], codec);
 
 		const Sdp::RemoteSdp::MediaSectionIdx mediaSectionIdx = this->remoteSdp->GetNextMediaSectionIdx();
 
@@ -233,8 +237,7 @@ namespace mediasoupclient
 
 			// Transport is not ready.
 			if (!this->transportReady)
-				this->SetupTransport(
-				  !this->forcedLocalDtlsRole.empty() ? this->forcedLocalDtlsRole : "server", localSdpObject);
+				this->SetupTransport( !this->forcedLocalDtlsRole.empty() ? this->forcedLocalDtlsRole : "server", localSdpObject);
 
 			std::string scalability_mode =
 			  encodings && encodings->size()
@@ -362,6 +365,8 @@ namespace mediasoupclient
 		sendResult.localId       = localId;
 		sendResult.rtpSender     = transceiver->sender().get();
 		sendResult.rtpParameters = sendingRtpParameters;
+
+		log_info(">");
 
 		return sendResult;
 	}

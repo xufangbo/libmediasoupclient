@@ -129,10 +129,10 @@ namespace mediasoupclient
 		// Set SDP semantics to Unified Plan.
 		config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
 
-		log_info("config.servers.size() = %ld",config.servers.size());
-		for(auto ice_server : config.servers){
-			log_info("- hostname: %s,uri = %s, username = %s, password = %s",ice_server.hostname.c_str(),ice_server.uri.c_str(),ice_server.username.c_str(),ice_server.password.c_str());
-		}
+		// log_info("config.servers.size() = %ld",config.servers.size());
+		// for(auto ice_server : config.servers){
+		// 	log_info("- hostname: %s,uri = %s, username = %s, password = %s",ice_server.hostname.c_str(),ice_server.uri.c_str(),ice_server.username.c_str(),ice_server.password.c_str());
+		// }
 
 		// Create the webrtc::Peerconnection.
 		this->pc = this->peerConnectionFactory->CreatePeerConnection(config, nullptr, nullptr, privateListener);
@@ -203,6 +203,7 @@ namespace mediasoupclient
 
 	void PeerConnection::SetLocalDescription(PeerConnection::SdpType type, const std::string& sdp)
 	{
+		log_info("<");
 		MSC_TRACE();
 
 		webrtc::SdpParseError error;
@@ -228,11 +229,14 @@ namespace mediasoupclient
 
 		this->pc->SetLocalDescription(std::move(sessionDescription), observer);
 
+		log_info(">");
+
 		return future.get();
 	}
 
 	void PeerConnection::SetRemoteDescription(PeerConnection::SdpType type, const std::string& sdp)
 	{
+		log_info("<");
 		MSC_TRACE();
 
 		webrtc::SdpParseError error;
@@ -257,6 +261,8 @@ namespace mediasoupclient
 		}
 
 		this->pc->SetRemoteDescription(std::move(sessionDescription), observer);
+
+		log_info(">");
 
 		return future.get();
 	}

@@ -4,6 +4,7 @@
 #include "Logger.hpp"
 #include "MediaSoupClientErrors.hpp"
 #include "ortc.hpp"
+#include "log.hpp"
 
 using json = nlohmann::json;
 
@@ -180,6 +181,7 @@ namespace mediasoupclient
 	  const json* codec,
 	  const json& appData)
 	{
+		log_info("<");
 		MSC_TRACE();
 
 		if (this->closed)
@@ -226,8 +228,7 @@ namespace mediasoupclient
 			ortc::validateRtpParameters(sendResult.rtpParameters);
 
 			// May throw.
-			producerId =
-			  this->listener->OnProduce(this, track->kind(), sendResult.rtpParameters, appData).get();
+			producerId = this->listener->OnProduce(this, track->kind(), sendResult.rtpParameters, appData).get();
 		}
 		catch (MediaSoupClientError& error)
 		{
@@ -248,6 +249,8 @@ namespace mediasoupclient
 
 		this->producers[producer->GetId()] = producer;
 
+		log_info(">");
+
 		return producer;
 	}
 
@@ -260,6 +263,7 @@ namespace mediasoupclient
 	  int maxPacketLifeTime,
 	  const nlohmann::json& appData)
 	{
+		log_info("<");
 		MSC_TRACE();
 
 		if (!this->hasSctpParameters)
@@ -296,6 +300,8 @@ namespace mediasoupclient
 		  appData);
 
 		this->dataProducers[dataProducer->GetId()] = dataProducer;
+
+		log_info("<");
 
 		return dataProducer;
 	}
