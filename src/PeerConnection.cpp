@@ -131,7 +131,7 @@ namespace mediasoupclient
 
 		log_info("config.servers.size() = %ld",config.servers.size());
 		for(auto ice_server : config.servers){
-			log_info("- hostname: %s,uri = %s, username = %s, password = %s",ice_server.hostname.c_str(),ice_server.uri.c_str(),ice_server.username.c_str()),ice_server.password.uri.c_str()
+			log_info("- hostname: %s,uri = %s, username = %s, password = %s",ice_server.hostname.c_str(),ice_server.uri.c_str(),ice_server.username.c_str()),ice_server.password.c_str()
 		}
 
 		// Create the webrtc::Peerconnection.
