@@ -61,7 +61,8 @@ namespace mediasoupclient
 		// Get Native RTP capabilities.
 		auto nativeRtpCapabilities = Handler::GetNativeRtpCapabilities(peerConnectionOptions);
 
-		MSC_DEBUG("got native RTP capabilities:\n%s", nativeRtpCapabilities.dump(4).c_str());
+		// MSC_DEBUG("got native RTP capabilities:\n%s", nativeRtpCapabilities.dump(4).c_str());
+		MSC_DEBUG("got native RTP capabilities:\n%s", nativeRtpCapabilities.dump().c_str());
 
 		// This may throw.
 		ortc::validateRtpCapabilities(nativeRtpCapabilities);
@@ -70,7 +71,8 @@ namespace mediasoupclient
 		this->extendedRtpCapabilities =
 		  ortc::getExtendedRtpCapabilities(nativeRtpCapabilities, routerRtpCapabilities);
 
-		MSC_DEBUG("got extended RTP capabilities:\n%s", this->extendedRtpCapabilities.dump(4).c_str());
+		// MSC_DEBUG("got extended RTP capabilities:\n%s", this->extendedRtpCapabilities.dump(4).c_str());
+		MSC_DEBUG("got extended RTP capabilities:\n%s", this->extendedRtpCapabilities.dump().c_str());
 
 		// Check whether we can produce audio/video.
 		this->canProduceByKind["audio"] = ortc::canSend("audio", this->extendedRtpCapabilities);
@@ -79,7 +81,8 @@ namespace mediasoupclient
 		// Generate our receiving RTP capabilities for receiving media.
 		this->recvRtpCapabilities = ortc::getRecvRtpCapabilities(this->extendedRtpCapabilities);
 
-		MSC_DEBUG("got receiving RTP capabilities:\n%s", this->recvRtpCapabilities.dump(4).c_str());
+		// MSC_DEBUG("got receiving RTP capabilities:\n%s", this->recvRtpCapabilities.dump(4).c_str());
+		MSC_DEBUG("got receiving RTP capabilities:\n%s", this->recvRtpCapabilities.dump().c_str());
 
 		// This may throw.
 		ortc::validateRtpCapabilities(this->recvRtpCapabilities);
@@ -87,7 +90,8 @@ namespace mediasoupclient
 		// Generate our SCTP capabilities.
 		this->sctpCapabilities = Handler::GetNativeSctpCapabilities();
 
-		MSC_DEBUG("got receiving SCTP capabilities:\n%s", this->sctpCapabilities.dump(4).c_str());
+		// MSC_DEBUG("got receiving SCTP capabilities:\n%s", this->sctpCapabilities.dump(4).c_str());
+		MSC_DEBUG("got receiving SCTP capabilities:\n%s", this->sctpCapabilities.dump().c_str());
 
 		// This may throw.
 		ortc::validateSctpCapabilities(this->sctpCapabilities);
