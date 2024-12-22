@@ -25,6 +25,11 @@ option(MEDIASOUPCLIENT_BUILD_TESTS "Build unit tests" OFF)
 option(MEDIASOUPCLIENT_LOG_TRACE   "Enable MSC_LOG_TRACE (See Logger.hpp)" OFF)
 option(MEDIASOUPCLIENT_LOG_DEV     "Enable MSC_LOG_DEV (See Logger.hpp)" OFF)
 
+set(WEBRTC_PATH /home/kevin/googlesource/webrtc)
+# set(WEBRTC_PATH /home/kevin/mydev/webrtc)
+set(LIBWEBRTC_INCLUDE_PATH ${WEBRTC_PATH}/src)
+set(LIBWEBRTC_BINARY_PATH ${WEBRTC_PATH}/src/out/libstdcpp/obj)
+
 # Project configuration.
 if(NOT LIBWEBRTC_INCLUDE_PATH)
 	set(LIBWEBRTC_INCLUDE_PATH "" CACHE STRING "libwebrtc include path")
