@@ -24,6 +24,8 @@
 #include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
 #include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 
+#include "log.hpp"
+
 using json = nlohmann::json;
 
 namespace mediasoupclient
@@ -127,9 +129,13 @@ namespace mediasoupclient
 		// Set SDP semantics to Unified Plan.
 		config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
 
+		log_info("config.servers.size() = %ld",config.servers.size());
+		for(auto ice_server : config.servers){
+			log_info("- hostname: %s,uri = %s, username = %s, password = %s",ice_server.hostname.c_str(),ice_server.uri.c_str(),ice_server.username.c_str()),password.uri.c_str()
+		}
+
 		// Create the webrtc::Peerconnection.
-		this->pc =
-		  this->peerConnectionFactory->CreatePeerConnection(config, nullptr, nullptr, privateListener);
+		this->pc = this->peerConnectionFactory->CreatePeerConnection(config, nullptr, nullptr, privateListener);
 	}
 
 	void PeerConnection::Close()
